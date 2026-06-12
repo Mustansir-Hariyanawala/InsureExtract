@@ -1,0 +1,10 @@
+package com.InsureExtract.version1.model;
+
+public enum DocumentCategory {
+    FINANCE_ACCOUNTING_PROCUREMENT,
+    POLICY_BASED,
+    MEDICAL_BASED,
+    LEGAL_COMPLIANCE,
+    LOGISTICS_SUPPLY_CHAIN_CUSTOMS,
+    HUMAN_RESOURCES_IDENTITY
+}

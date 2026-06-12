@@ -13,22 +13,23 @@ import java.util.List;
 @Getter
 @Setter
 @EntityListeners(AuditingEntityListener.class)
-public class SessionEntity {
+public class DocumentEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String sessionId;
+    private String documentId;
 
-    @Enumerated(EnumType.STRING)
-    private DocumentCategory category;
+    private String fileName;
+    private String fileType; // e.g., application/pdf
+    private long fileSize;
 
-    // Stores the final AI-extracted structured output as a JSON string
-    @Column(columnDefinition = "TEXT")
-    private String structuredOutput;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "session_id")
+    private SessionEntity session;
 
-    @OneToMany(mappedBy = "session", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<DocumentEntity> documents = new ArrayList<>();
+    @OneToMany(mappedBy = "document", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<DocumentChunkEntity> chunks = new ArrayList<>();
 
     @CreatedDate
-    private Date createdAt;
+    private Date uploadedAt;
 }
